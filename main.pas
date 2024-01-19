@@ -43,17 +43,18 @@ procedure PopulateList(pathList: TListBox; source: String; rootKey: HKEY;
   regKey, regProperty: String);
 var
   Reg: TRegistry;
+  KeyInfo: TRegKeyInfo;
   pathArray: Tarray<String>;
   msg, pathStr: String;
 
 begin
   LogMessage(Format('Reading "%s" Path from "%s"', [source, regKey]));
   // Reg := TRegistry.Create(KEY_ALL_ACCESS);
-  // Reg := TRegistry.Create(KEY_ALL_ACCESS OR KEY_WOW64_64KEY);
+  Reg := TRegistry.Create(KEY_ALL_ACCESS OR KEY_WOW64_64KEY);
   // Reg := TRegistry.Create(KEY_EXECUTE);
   // Reg := TRegistry.Create(KEY_EXECUTE OR KEY_WOW64_64KEY);
   // Reg := TRegistry.Create(KEY_READ OR KEY_WOW64_32KEY);
-  Reg := TRegistry.Create(KEY_READ OR KEY_WOW64_64KEY);
+  // Reg := TRegistry.Create(KEY_READ OR KEY_WOW64_64KEY);
   // Reg := TRegistry.Create(KEY_WRITE OR KEY_WOW64_32KEY);
   // https://stackoverflow.com/questions/2666807/registry-readstring-method-is-not-working-in-windows-7-in-delphi-7
   // Reg := TRegistry.Create(KEY_ENUMERATE_SUB_KEYS);
@@ -64,6 +65,12 @@ begin
     LogMessage(Format('Opening key: %s', [regKey]));
     if Reg.KeyExists(regKey) then begin
       if OpenKeyReadOnly(regKey) then begin
+
+        Reg.GetKeyInfo(KeyInfo);
+        LogMessage('Number of Keys: ' + IntToStr(KeyInfo.NumSubKeys));
+        LogMessage('Number of Subkeys: ' + IntToStr(KeyInfo.NumSubKeys));
+        LogMessage('Number of Values: ' + IntToStr(KeyInfo.NumValues));
+
         LogMessage('Key opened');
         if ValueExists(regProperty) then begin
           LogMessage(Format('Reading property %s', [regProperty]));
@@ -95,9 +102,10 @@ begin
   PopulateList(UserPathList, 'User', HKEY_CURRENT_USER, 'Environment',
     pathProperty);
   PopulateList(SystemPathList, 'System', HKEY_LOCAL_MACHINE,
-    'SYSTEM\CurrentControlSet\Control\Session Manager\Environment',
-    pathProperty);
+    '\SYSTEM\CurrentControlSet\Control\Session Manager', pathProperty);
 end;
+
+// '\SYSTEM\CurrentControlSet\Control\Session Manager\Environment',
 
 procedure TfrmMain.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
