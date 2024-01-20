@@ -3,7 +3,7 @@ unit main;
 interface
 
 uses
-  Log, Registry,
+  Registry,
 
   System.SysUtils, System.Variants, System.Classes,
 
@@ -21,7 +21,6 @@ type
     UserGroupBox: TGroupBox;
     UserPathList: TListBox;
     procedure FormCreate(Sender: TObject);
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormActivate(Sender: TObject);
   private
     { Private declarations }
@@ -39,57 +38,31 @@ implementation
 
 {$R *.dfm}
 
-procedure PopulateList(pathList: TListBox; source: String; theHKey: HKEY;
+procedure PopulateList(pathList: TListBox; theHKey: HKEY;
   regKey, regProperty: String);
 var
   Reg: TRegistry;
-  KeyInfo: TRegKeyInfo;
   pathArray: Tarray<String>;
-  msg, pathStr: String;
+  pathStr: String;
 
 begin
-  LogMessage(Format('Reading "%s" Path from "%s"', [source, regKey]));
-  // Reg := TRegistry.Create(KEY_ALL_ACCESS);
-  // Reg := TRegistry.Create(KEY_ALL_ACCESS OR KEY_WOW64_64KEY);
-  // Reg := TRegistry.Create(KEY_EXECUTE);
-  Reg := TRegistry.Create(KEY_EXECUTE OR KEY_WOW64_64KEY);
-  // Reg := TRegistry.Create(KEY_READ OR KEY_WOW64_32KEY);
-  // Reg := TRegistry.Create(KEY_READ OR KEY_WOW64_64KEY);
-  // Reg := TRegistry.Create(KEY_WRITE OR KEY_WOW64_32KEY);
-  // https://stackoverflow.com/questions/2666807/registry-readstring-method-is-not-working-in-windows-7-in-delphi-7
-  // Reg := TRegistry.Create(KEY_ENUMERATE_SUB_KEYS);
+  Reg := TRegistry.Create(KEY_READ);
 
   Reg.rootKey := theHKey;
-  LogMessage(Format('Opening key: %s', [regKey]));
   if Reg.KeyExists(regKey) then begin
     if Reg.OpenKey(regKey, false) then begin
-
-      Reg.GetKeyInfo(KeyInfo);
-      LogMessage('Number of Keys: ' + IntToStr(KeyInfo.NumSubKeys));
-      LogMessage('Number of Subkeys: ' + IntToStr(KeyInfo.NumSubKeys));
-      LogMessage('Number of Values: ' + IntToStr(KeyInfo.NumValues));
-
-      LogMessage('Key opened');
       if Reg.ValueExists(regProperty) then begin
-        LogMessage(Format('Reading property %s', [regProperty]));
         pathStr := Reg.Readstring(regProperty);
         if Length(pathStr) > 0 then begin
-          LogMessage('Path: ' + pathStr);
           pathArray := pathStr.Split([';'], TStringSplitOptions.ExcludeEmpty);
           pathList.Items.AddStrings(pathArray);
         end;
       end else begin
-        msg := Format('%s Path property "%s" does not exist.',
-          [source, regProperty]);
-        LogMessage(msg);
-        ShowMessage(msg);
+        ShowMessage(Format('Property "%s" does not exist.', [regProperty]));
       end;
       Reg.CloseKey;
     end else begin
-      msg := Format('Getting %s Path and cannot open open: %s',
-        [source, regKey]);
-      LogMessage(msg);
-      ShowMessage(msg);
+      ShowMessage(Format('Path and cannot open open: %s', [regKey]));
     end;
   end;
 
@@ -97,23 +70,14 @@ end;
 
 procedure TfrmMain.FormActivate(Sender: TObject);
 begin
-  PopulateList(UserPathList, 'User', HKEY_CURRENT_USER, 'Environment',
+  PopulateList(UserPathList, HKEY_CURRENT_USER, 'Environment', pathProperty);
+  PopulateList(SystemPathList, HKEY_LOCAL_MACHINE,
+    '\SYSTEM\CurrentControlSet\Control\Session Manager\Environment',
     pathProperty);
-  PopulateList(SystemPathList, 'System', HKEY_LOCAL_MACHINE,
-    '\SYSTEM\CurrentControlSet\Control\Session Manager\Environment', pathProperty);
-end;
-
-procedure TfrmMain.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-  LogMessage('Closing application');
-  CloseLog;
 end;
 
 procedure TfrmMain.FormCreate(Sender: TObject);
 begin
-  OpenLog;
-  LogMessage('Form created');
-
   PanelMain.Align := alClient;
   UserGroupBox.Align := alTop;
   UserGroupBox.Height := PanelMain.Height div 2;

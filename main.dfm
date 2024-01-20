@@ -2,7 +2,7 @@ object frmMain: TfrmMain
   Left = 0
   Top = 0
   BorderStyle = bsDialog
-  Caption = 'Path Test'
+  Caption = 'Windows Path Settings'
   ClientHeight = 441
   ClientWidth = 624
   Color = clBtnFace
@@ -12,7 +12,6 @@ object frmMain: TfrmMain
   Font.Name = 'Segoe UI'
   Font.Style = []
   OnActivate = FormActivate
-  OnClose = FormClose
   OnCreate = FormCreate
   TextHeight = 15
   object StatusBar1: TStatusBar
