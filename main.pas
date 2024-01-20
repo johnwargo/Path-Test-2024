@@ -80,8 +80,10 @@ procedure TfrmMain.FormCreate(Sender: TObject);
 begin
   PanelMain.Align := alClient;
   UserGroupBox.Height :=
-    (PanelMain.Height - (UserGroupBox.Padding.Top + UserGroupBox.Padding.Bottom))
-    div 2;
-    UserGroupBox.Align := alTop; SystemGroupBox.Align := alClient; end;
+    (PanelMain.Height - (UserGroupBox.Padding.Top +
+    UserGroupBox.Padding.Bottom)) div 2;
+  UserGroupBox.Align := alTop;
+  SystemGroupBox.Align := alClient;
+end;
 
-  end.
+end.

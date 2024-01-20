@@ -20,7 +20,12 @@ object frmMain: TfrmMain
     Top = 422
     Width = 624
     Height = 19
+    Hint = 'https://johnwargo.com'
     Panels = <>
+    ParentShowHint = False
+    ShowHint = True
+    SimplePanel = True
+    SimpleText = 'By John M. Wargo'
     ExplicitTop = 414
     ExplicitWidth = 622
   end
