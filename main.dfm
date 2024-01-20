@@ -11,6 +11,7 @@ object frmMain: TfrmMain
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  Position = poScreenCenter
   OnActivate = FormActivate
   OnCreate = FormCreate
   TextHeight = 15
@@ -24,7 +25,7 @@ object frmMain: TfrmMain
     ExplicitWidth = 622
   end
   object PanelMain: TPanel
-    Left = 16
+    Left = 8
     Top = 19
     Width = 217
     Height = 270
