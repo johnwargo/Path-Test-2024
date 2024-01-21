@@ -1,0 +1,36 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{4C774405-6E29-4899-976B-C667DF081203}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="PathTest.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="PathTest">
+        <MSBuild Projects="PathTest.dproj"/>
+    </Target>
+    <Target Name="PathTest:Clean">
+        <MSBuild Projects="PathTest.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="PathTest:Make">
+        <MSBuild Projects="PathTest.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="PathTest"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="PathTest:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="PathTest:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
