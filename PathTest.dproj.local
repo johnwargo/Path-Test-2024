@@ -2,9 +2,9 @@
 <BorlandProject>
 	<Transactions>
     <Transaction>2024/01/19 07:50:30.000.118,=C:\Users\john\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2024/01/19 07:51:10.000.201,C:\Users\john\Documents\Embarcadero\Studio\Projects\Unit1.pas=D:\dev\delphi\Path Test 2024\main.pas</Transaction>
-    <Transaction>2024/01/19 07:51:10.000.201,C:\Users\john\Documents\Embarcadero\Studio\Projects\Unit1.dfm=D:\dev\delphi\Path Test 2024\main.dfm</Transaction>
-    <Transaction>2024/01/19 07:51:17.000.289,C:\Users\john\Documents\Embarcadero\Studio\Projects\Project1.dproj=D:\dev\delphi\Path Test 2024\PathTest.dproj</Transaction>
+    <Transaction>2024/01/19 07:51:10.000.201,D:\dev\delphi\Path Test 2024\main.pas=C:\Users\john\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/01/19 07:51:10.000.201,D:\dev\delphi\Path Test 2024\main.dfm=C:\Users\john\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2024/01/19 07:51:17.000.289,D:\dev\delphi\Path Test 2024\PathTest.dproj=C:\Users\john\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
     <Transaction>2024/01/21 09:25:27.000.524,D:\dev\delphi\Path Test 2024\PathTest.dproj=D:\dev\delphi\Path Test 2024\PathTest.dproj</Transaction>
   </Transactions>
 </BorlandProject>
