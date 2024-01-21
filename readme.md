@@ -1,4 +1,4 @@
-# Delphi Read/Write Windows 11 System Path
+# Windows Path Viewer Delphi
 
 I created this project because I was trying to figure out how to read and update the Windows User and System and paths in a Delphi application running on Windows 11.
 
